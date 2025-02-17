@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-4xl">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Welcome to MyWebsite</h2>
+        <p class="text-center text-gray-600 mb-12">A simple website built with Flask and Tailwind CSS. Check out the rank table below!</p>
+
+        <div class="text-center mb-12">
+            <a href="{{ url_for('auth.login') }}"
+                class="inline-block bg-indigo-600 text-white py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 mx-2 mb-4 sm:mb-0">
+                Login
+            </a>
+            <a href="{{ url_for('auth.register') }}"
+                class="inline-block bg-indigo-600 text-white py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 mx-2 mb-4 sm:mb-0">
+                Register
+            </a>
+            <a href="{{ url_for('tasks.dashboard') }}"
+                class="inline-block bg-indigo-600 text-white py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 mx-2">
+                Dashboard
+            </a>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg shadow-xl">
+            <h3 class="text-2xl font-semibold text-center text-gray-800 mb-6">Rank Table</h3>
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                <table class="min-w-full text-left">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
+                            <th class="py-3 px-6 text-lg font-medium">Rank</th>
+                            <th class="py-3 px-6 text-lg font-medium">Email</th>
+                            <th class="py-3 px-6 text-lg font-medium">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr class="hover:bg-indigo-50">
+                            <td class="py-4 px-6 text-gray-800 font-medium">{{ loop.index }}</td>
+                            <td class="py-4 px-6 text-gray-600">{{ user.email }}</td>
+                            <td class="py-4 px-6 text-gray-600">{{ user.rank }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

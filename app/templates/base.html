@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-xl text-indigo-600">
+                    <i class="fas fa-arrow-left mr-1"></i>Go Back
+                </a>
+                <!-- Navigation -->
+                <nav class="space-x-4">
+                    {% if not g.user %}
+                        <a href="{{url_for('auth.login')}}" class="text-gray-700 hover:text-indigo-600">
+                            <i class="fas fa-sign-in-alt mr-1"></i>Login
+                        </a>
+                        <a href="{{url_for('auth.register')}}" class="text-gray-700 hover:text-indigo-600">
+                            <i class="fas fa-user-plus mr-1"></i>Register
+                        </a>
+                    {% else %}
+                        <a href="/" class="text-gray-700 hover:text-indigo-600">
+                            <i class="fas fa-home mr-1"></i>Home
+                        </a>
+                        <a href="{{url_for('auth.logout')}}" class="text-gray-700 hover:text-indigo-600">
+                            <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                        </a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-indigo-600 to-blue-500 shadow-md mt-8">
+        <div class="container mx-auto px-6 py-4">
+            <div class="text-center text-white">
+                <p>&copy; 2023 MyWebsite. All rights reserved.</p>
+                <p class="mt-2">
+                    <a href="/privacy" class="hover:text-indigo-200"><i class="fas fa-shield-alt mr-1"></i>Privacy Policy</a> |
+                    <a href="/terms" class="hover:text-indigo-200"><i class="fas fa-file-contract mr-1"></i>Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Replace "MyWebsite" with the previous path
+        document.addEventListener('DOMContentLoaded', () => {
+            const backLink = document.querySelector('header a');
+            const previousPath = document.referrer ? new URL(document.referrer).pathname : '/';
+            backLink.href = previousPath;
+        });
+    </script>
+</body>
+</html>
